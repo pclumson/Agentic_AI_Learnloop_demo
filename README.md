@@ -51,13 +51,44 @@ This project was designed to showcase backend engineering patterns for AI learni
 | **🗄️ Data Logging** | PostgreSQL models storing interactions, traces, and evaluation scores for downstream analysis |
 | **🔒 Secure APIs** | Django REST Framework with authentication and secure transport methodologies |
 
----
 
 ## 🏗️ Architecture
 
+flowchart TD
+    subgraph Client["Client (Frontend)"]
+        A[User Interface]
+    end
+
+    subgraph API["Django REST API Layer"]
+        B1[Authentication & Authorization]
+        B2[Request Validation]
+        B3[Rate Limiting]
+    end
+
+    subgraph Workers["Celery Worker Pool"]
+        C1[Agent Invocation]
+        C2[Evaluation Scoring]
+        C3[Async Tasks]
+    end
+
+    subgraph Database["PostgreSQL Database"]
+        D1[Learner Profiles]
+        D2[Session Data]
+        D3[Interaction Logs]
+    end
+
+    subgraph Agents["LangChain Agent Layer"]
+        E1[Dynamic Prompt Templates]
+        E2[LLM Integration (GPT-4, etc.)]
+        E3[Chain Orchestration]
+    end
+
+    Client -->|HTTP/REST| API
+    API --> Workers
+    API --> Database
+    Workers --> Agents
 
 
----
 
 ## 🛠️ Tech Stack
 
@@ -71,8 +102,6 @@ This project was designed to showcase backend engineering patterns for AI learni
 | **🔒 Secure APIs** | Django REST Framework with authentication and secure transport methodologies |
 | ** CI/CD **|  GitHub Actions |
 | ** Monitoring ** | Custom logging with trace metadata |
-
-
 
 
 ## 📦 Installation
