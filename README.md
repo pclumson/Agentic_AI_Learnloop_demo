@@ -55,19 +55,27 @@ This project was designed to showcase backend engineering patterns for AI learni
 
 ## 🏗️ Architecture
 
-┌─────────────────────────────────────────────────────────────────┐ │ Client (Frontend) │ └───────────────────────────────┬─────────────────────────────────┘ │ HTTP/REST ▼ ┌─────────────────────────────────────────────────────────────────┐ │ Django REST API Layer │ │ • Authentication & Authorization │ │ • Request Validation │ │ • Rate Limiting │ └───────────────────────────────┬─────────────────────────────────┘ │ ┌───────────┴───────────┐ ▼ ▼ ┌─────────────────────────┐ ┌─────────────────────────┐ │ Celery Worker Pool │ │ PostgreSQL Database │ │ • Agent Invocation │ │ • Learner Profiles │ │ • Evaluation Scoring │ │ • Session Data │ │ • Async Tasks │ │ • Interaction Logs │ └─────────────────────────┘ └─────────────────────────┘ │ ▼ ┌─────────────────────────────────────────────────────────────────┐ │ LangChain Agent Layer │ │ • Dynamic Prompt Templates │ │ • LLM Integration (GPT-4, etc.) │ │ • Chain Orchestration │ └─────────────────────────────────────────────────────────────────┘
 
-🛠️ Tech Stack
-Category	Technology
-Backend Framework	Django 4.2+, Django REST Framework
-AI/ML	LangChain 0.1+, OpenAI API
-Async Processing	Celery, Redis
-Database	PostgreSQL
-Containerization	Docker, Docker Compose
-CI/CD	GitHub Actions
-Monitoring	Custom logging with trace metadata
 
-📦 Installation
+---
+
+## 🛠️ Tech Stack
+
+|Category | Technology |
+|---------|-------------|
+| **🤖 Backend Framework** |Django 4.2+, Django REST Framework |
+| **📊AI/MLk** | LangChain 0.1+, OpenAI API |
+| **⚡ Async Processing** | Celery + Redis for non-blocking agent invocation and real-time interaction handling |
+| **📈 Database** |Postgresql |
+| **🗄️ Containerizatio** |Docker, Docker Compose |
+| **🔒 Secure APIs** | Django REST Framework with authentication and secure transport methodologies |
+| ** CI/CD **|  GitHub Actions |
+| ** Monitoring ** | Custom logging with trace metadata |
+
+
+
+
+## 📦 Installation
 Prerequisites
 
     Python 3.10+
