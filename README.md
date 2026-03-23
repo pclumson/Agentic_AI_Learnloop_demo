@@ -66,6 +66,7 @@ Database	PostgreSQL
 Containerization	Docker, Docker Compose
 CI/CD	GitHub Actions
 Monitoring	Custom logging with trace metadata
+
 📦 Installation
 Prerequisites
 
