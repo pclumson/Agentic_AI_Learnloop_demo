@@ -54,39 +54,9 @@ This project was designed to showcase backend engineering patterns for AI learni
 
 ## 🏗️ Architecture
 
-flowchart TD
-    subgraph Client["Client (Frontend)"]
-        A[User Interface]
-    end
+<img width="1218" height="678" alt="archi" src="https://github.com/user-attachments/assets/a5294e88-aa73-4b39-ae46-448c2060b4e9" />
 
-    subgraph API["Django REST API Layer"]
-        B1[Authentication & Authorization]
-        B2[Request Validation]
-        B3[Rate Limiting]
-    end
 
-    subgraph Workers["Celery Worker Pool"]
-        C1[Agent Invocation]
-        C2[Evaluation Scoring]
-        C3[Async Tasks]
-    end
-
-    subgraph Database["PostgreSQL Database"]
-        D1[Learner Profiles]
-        D2[Session Data]
-        D3[Interaction Logs]
-    end
-
-    subgraph Agents["LangChain Agent Layer"]
-        E1[Dynamic Prompt Templates]
-        E2[LLM Integration (GPT-4, etc.)]
-        E3[Chain Orchestration]
-    end
-
-    Client -->|HTTP/REST| API
-    API --> Workers
-    API --> Database
-    Workers --> Agents
 
 
 
