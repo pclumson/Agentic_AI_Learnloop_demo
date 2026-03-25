@@ -1,25 +1,68 @@
 from django.shortcuts import render
 
-# Create your views here.
+"""
+API Views for LearnLoop
+"""
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .models import LearningSession
+from rest_framework.permissions import IsAuthenticated
+from .models import LearningSession, InteractionLog, Learner
 from .tasks import process_learning_interaction
+from .evaluation import evaluate_interaction
+
+
+
+class SessionListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+
+
+
+class SessionDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        """Retrieve specific session details"""
+
+            return Response({"error": "Session not found"}, status=status.HTTP_404_NOT_FOUND)
+
 
 class ChatInteractionView(APIView):
-    def post(self, request):
-        session_id = request.data.get('session_id')
-        user_input = request.data.get('input')
+    permission_classes = [IsAuthenticated]
 
-        if not session_id or not user_input:
-            return Response({"error": "Missing session_id or input"}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Trigger async task
-        task = process_learning_interaction.delay(session_id, user_input)
 
-        return Response({
-            "message": "Processing...",
-            "task_id": task.id,
-            "status": "queued"
-        }, status=status.HTTP_202_ACCEPTED)
+class MetricsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+
+
+class LearnerProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, pk):
+        """Retrieve learner profile"""
+        try:
+            learner = Learner.objects.get(pk=pk)
+            serializer = LearnerSerializer(learner)
+            return Response(serializer.data)
+        except Learner.DoesNotExist:
+            return Response({"error": "Learner not found"}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+class EvaluationReportView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """List all evaluation reports"""
+        evaluations = InteractionLog.objects.exclude(evaluation_score__isnull=True)
+        serializer = EvaluationSerializer(evaluations, many=True)
+        return Response(serializer.data)
+
+    def aggregate(self, request):
+        """Get aggregate evaluation statistics"""
+
+        )
+        return Response(stats)
